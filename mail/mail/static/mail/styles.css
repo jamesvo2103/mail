@@ -13,3 +13,21 @@ textarea {
 .list-group-item {
     border-color: black;
 }
+
+/* General styling for email items */
+.email-item {
+    border: 1px solid #ccc; /* Adds a light gray border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px; /* Adds spacing inside the email block */
+    margin-bottom: 10px; /* Adds space between emails */
+    cursor: pointer; /* Makes the cursor a pointer to indicate it's clickable */
+    background-color: #f9f9f9; /* Light background for better readability */
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+  }
+  
+  /* Hover effect for emails */
+  .email-item:hover {
+    background-color: #e6e6e6; /* Slightly darker background on hover */
+  }
+  
+  /* Styling for read emails */

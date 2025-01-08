@@ -54,13 +54,36 @@ function view_email(id) {
       })
       })
     }
+    //archived
     const btn_arch = document.createElement('button');
-    btn_arch.innerHTML = email.archived ? 'Enarchived':'Archive';
-    btn_arch.innerHTML = email.archived ? 'btn btn-success':'btn btn-danger';
+    btn_arch.innerHTML = email.archived ? 'Unarchived':'Archive';
+    btn_arch.className = email.archived ? 'btn btn-success':'btn btn-danger';
     btn_arch.addEventListener('click', function() {
-        console.log('This element has been clicked!')
+      fetch(`/emails/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+            archived: !email.archived
+        })
+      })
+      .then(() => {load_mailbox('archive')})
     });
-    document.querySelector('#container').append(element);
+    document.querySelector('#emails-detail').append(btn_arch);
+    
+    //reply
+    const btn_reply = document.createElement('button');
+    btn_reply.innerHTML = 'Reply';
+    btn_reply.className = 'btn btn-info';
+    btn_reply.addEventListener('click', function() {
+      compose_email();
+      let subject = email.suject;
+      if (subject.split(' ',1)[0] != "Re:"){
+        subject = "Re: " + email.subject;
+      }
+      document.querySelector('#compose-recipients').value = email.sender;
+      document.querySelector('#compose-subject').value = email.subject;
+      document.querySelector('#compose-body').value = `On ${email.timestamp} ${email.sender} wrote ${email.body}`;
+    });
+    document.querySelector('#emails-detail').append(btn_reply);
 
   });
 }
