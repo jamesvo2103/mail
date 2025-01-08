@@ -75,9 +75,9 @@ function view_email(id) {
     btn_reply.className = 'btn btn-info';
     btn_reply.addEventListener('click', function() {
       compose_email();
-      let subject = email.suject;
-      if (subject.split(' ',1)[0] != "Re:"){
-        subject = "Re: " + email.subject;
+      let subject = email.subject;
+      if (!subject.startsWith('Re:')) {
+        subject = `Re: ${email.subject}`;
       }
       document.querySelector('#compose-recipients').value = email.sender;
       document.querySelector('#compose-subject').value = email.subject;
