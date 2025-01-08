@@ -9,3 +9,7 @@ textarea {
 .unread{
     background-color: gray;
 }
+
+.list-group-item {
+    border-color: black;
+}

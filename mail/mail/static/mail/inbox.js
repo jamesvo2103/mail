@@ -39,16 +39,34 @@ function view_email(id) {
   document.querySelector('#emails-detail').style.display = 'block';
 
   document.querySelector('#emails-detail').innerHTML = `
-    <strong>From:</strong> ${email.sender}<br>
-    <strong>To:</strong> ${email.recipients}<br>
-    <strong>Subject:</strong> ${email.subject}<br>
-    <strong>Timestamp:</strong> ${email.timestamp}<br>
-    <hr>
-    <p>${email.body}{/p}
-  `;
-});
+  <ul class = "list-group">
+    <li class ="list-group-item"><strong>From:</strong> ${email.sender}</li>
+    <li class ="list-group-item"><strong>To:</strong> ${email.recipients}</li>
+    <li class ="list-group-item"><strong>Subject:</strong> ${email.subject}</li>
+    <li class ="list-group-item"><strong>Timestamp:</strong> ${email.timestamp}</li>
+    <li class ="list-group-item">${email.body}</li>
+  `
+  if (!email.read){
+    fetch(`/emails/${email.id}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+          read: true
+      })
+      })
+    }
+    const btn_arch = document.createElement('button');
+    btn_arch.innerHTML = email.archived ? 'Enarchived':'Archive';
+    btn_arch.innerHTML = email.archived ? 'btn btn-success':'btn btn-danger';
+    btn_arch.addEventListener('click', function() {
+        console.log('This element has been clicked!')
+    });
+    document.querySelector('#container').append(element);
 
+  });
 }
+
+
+
 
 function load_mailbox(mailbox) {
   
